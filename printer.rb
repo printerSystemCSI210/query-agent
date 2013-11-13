@@ -1,4 +1,4 @@
-require 'snmp'
+require './lib/snmp'
 
 class Printer
     
