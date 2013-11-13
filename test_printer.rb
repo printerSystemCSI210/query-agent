@@ -1,7 +1,9 @@
 require './printer'
 
-p = Printer.new('192.168.130.249')
+p = Printer.new('192.168.43.240')
 
+puts "Name:      #{p.get_name}"
+puts "Location:  #{p.get_location}"
 puts "Model:     #{p.get_model}"
 puts "Serial:    #{p.get_serial}"
 puts "Message:   #{p.get_messages}"

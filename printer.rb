@@ -184,5 +184,13 @@ class Printer
         return trays
     end
 
+    def get_location
+        return snmp_get('1.3.6.1.2.1.1.6.0')
+    end
+
+    def get_name
+        return snmp_get('1.3.6.1.2.1.1.5.0')
+    end
+
     private :snmp_get, :snmp_walk
 end
