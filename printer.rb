@@ -50,7 +50,7 @@ class Printer
 
     # Query the printer for its pagecount
     def get_page_count
-        return snmp_get('1.3.6.1.2.1.43.10.2.1.4.1.1')
+        return Integer(snmp_get('1.3.6.1.2.1.43.10.2.1.4.1.1'))
     end
 
     # Query the printer for its display
@@ -118,9 +118,9 @@ class Printer
     end
 
     def get_consumable(id)
-        color = snmp_get("1.3.6.1.2.1.43.12.1.1.4.1.#{id}")
-        level = snmp_get("1.3.6.1.2.1.43.11.1.1.9.1.#{id}")
-        capacity = snmp_get("1.3.6.1.2.1.43.11.1.1.8.1.#{id}")
+        color = snmp_get("1.3.6.1.2.1.43.12.1.1.4.1.#{id}").to_s
+        level = Integer(snmp_get("1.3.6.1.2.1.43.11.1.1.9.1.#{id}"))
+        capacity = Integer(snmp_get("1.3.6.1.2.1.43.11.1.1.8.1.#{id}"))
         percentage = Float(level) * 100 / Float(capacity)
         return {:color => color,
             :level => level,
@@ -176,7 +176,7 @@ class Printer
                 xfeed_dim = Float(xfeed_dim) * 0.0000393700787
             end
 
-            capacity = snmp_get("1.3.6.1.2.1.43.8.2.1.9.1.#{tray}")
+            capacity = Integer(snmp_get("1.3.6.1.2.1.43.8.2.1.9.1.#{tray}"))
 
             trays.push({:name => name, :status => status, :y => feed_dim, :x => xfeed_dim, :capacity => capacity})
         end
