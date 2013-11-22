@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
     s.name = 'forest-client'
-    s.version = '0.0.8'
-    s.date = '2013-11-15'
+    s.version = '0.0.9'
+    s.date = '2013-11-22'
     s.summary = 'Forest Printer Management Query Agent'
     s.description = 'The LAN printer query agent for the Forest printer management system.'
     s.authors = ['Ben Burwell', 'Andrew Trautman', 'Macauley Breault', 'Mike Borowski']

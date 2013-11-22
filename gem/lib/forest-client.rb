@@ -56,26 +56,33 @@ module ForestClient
 
             trays = Array.new
 
-            p.get_trays.each { |tray|
-                trays.push({
-                    'name' => tray[:name],
-                    'xdim' => tray[:x],
-                    'ydim' => tray[:y],
-                    'capacity' => tray[:capacity]})
-            }
+            t = p.get_trays
+            if t
+                t.each { |tray|
+                    trays.push({
+                        'name' => tray[:name],
+                        'xdim' => tray[:x],
+                        'ydim' => tray[:y],
+                        'capacity' => tray[:capacity]
+                    })
+                }
+            end
 
             url += '&trays=' + trays.to_s.gsub!('=>', ':')
 
             consumables = Array.new
 
-            p.get_consumables.each { |cons|
-                consumables.push({
-                    'name' => cons[:name],
-                    'level' => cons[:level],
-                    'capacity' => cons[:capacity],
-                    'percentage' => cons[:percentage]
-                    })
-            }
+            c = p.get_consumables
+            if c
+                c.each { |cons|
+                    consumables.push({
+                        'name' => cons[:name],
+                        'level' => cons[:level],
+                        'capacity' => cons[:capacity],
+                        'percentage' => cons[:percentage]
+                     })
+                }
+            end
 
             url += '&consumables=' + consumables.to_s.gsub!('=>', ':')
 
@@ -94,9 +101,11 @@ module ForestClient
             forest = Forest.new(@org_id)
 
             printers = forest.get_printers
-            printers.each do |printer|    
-                forest.update_printer(printer)
-                forest.update_status(printer)
+            if printers
+                printers.each do |printer|    
+                    forest.update_printer(printer)
+                    forest.update_status(printer)
+                end
             end
         end
     end
