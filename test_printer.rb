@@ -1,7 +1,7 @@
-require './printer'
+require 'forest-client'
 
 def printer_info(ip)
-    p = Printer.new(ip)
+    p = ForestClient::Printer.new(ip)
     puts "Name:      #{p.get_name}"
     puts "Location:  #{p.get_location}"
     puts "Model:     #{p.get_model}"
