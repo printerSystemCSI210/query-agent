@@ -170,15 +170,25 @@ module ForestClient
                 xfeed_dim = snmp_get("1.3.6.1.2.1.43.8.2.1.5.1.#{tray}")
                 dim_units = snmp_get("1.3.6.1.2.1.43.8.2.1.3.1.#{tray}")
 
-                if Integer(dim_units) == 3
-                    feed_dim = Float(feed_dim) / 10000
-                    xfeed_dim = Float(xfeed_dim) / 10000
-                elsif Integer(dim_units) == 4
-                    feed_dim = Float(feed_dim) * 0.0000393700787
-                    xfeed_dim = Float(xfeed_dim) * 0.0000393700787
+                if feed_dim.respond_to?(:to_i) && xfeed_dim.respond_to?(:to_i) && dim_units.respond_to?(:to_i)
+                    if feed_dim > 0 && xfeed_dim > 0
+                        if dim_units.to_i == 3
+                            feed_dim = Float(feed_dim) / 10000
+                            xfeed_dim = Float(xfeed_dim) / 10000
+                        elsif dim_units.to_i == 4
+                            feed_dim = Float(feed_dim) * 0.0000393700787
+                            xfeed_dim = Float(xfeed_dim) * 0.0000393700787
+                        end
+                    end
                 end
 
-                capacity = Integer(snmp_get("1.3.6.1.2.1.43.8.2.1.9.1.#{tray}"))
+                capacity = snmp_get("1.3.6.1.2.1.43.8.2.1.9.1.#{tray}")
+
+                if capacity.respond_to?(:to_i)
+                    capacity = capacity.to_i
+                else
+                    capacity = 0
+                end     
 
                 trays.push({:name => name, :status => status, :y => feed_dim, :x => xfeed_dim, :capacity => capacity})
             end
