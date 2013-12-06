@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Perform necessary forest-installer removal steps
+# after package is uninstalled.
+#
+
+echo "forest-installer has been uninstalled!"
+
+exit 0
